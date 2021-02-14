@@ -1,0 +1,24 @@
+{
+  "name": "note-taker",
+  "version": "1.0.0",
+  "description": "Express Note Taking software",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-monkey713/take-express-notes.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/code-monkey713/take-express-notes/issues"
+  },
+  "homepage": "https://github.com/code-monkey713/take-express-notes#readme"
+}
