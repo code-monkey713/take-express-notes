@@ -1,18 +1,18 @@
 let notesArray = [
   {
-    "routeName": "testing3",
-    "title": "Test Title",
-    "text": "Test text"
+    "id": "connecttheroutes",
+    "title": "routes for the HTML pages",
+    "text": "connect the routes for all the HTML pages under the public folder"
   },
   {
-    "routeName": "test1",
-    "title": "test1",
-    "text": "test1"
+    "id": "connecttheapis",
+    "title": "routes for the API calls",
+    "text": "setup the routes for all the API calls for the application under the db folder"
   },
   {
-    "routeName": "test2",
-    "title": "test2",
-    "text": "test2"
+    "id": "testtheapplication",
+    "title": "test application function extensively",
+    "text": "make sure test application extensively for each function to work and to follow all the steps and create TESTS for the items to work correctly"
   }
 ];
 
