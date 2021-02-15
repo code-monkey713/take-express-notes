@@ -1,3 +1,5 @@
+// console.log('You are GETTING THE JAVASCRIPT!');
+
 let noteTitle;
 let noteText;
 let saveNoteBtn;
