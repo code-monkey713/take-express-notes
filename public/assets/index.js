@@ -44,12 +44,28 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
-const deleteNote = (id) =>
+// original delete note 
+// const deleteNote = (id) =>
+//   fetch(`/api/notes/${id}`, {
+//     method: 'DELETE',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   });
+
+  const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
+    // body: null
+  })
+  .then(() => {
+    console.log('I need to send the data to delete to the server!');
+    console.log(`removed item with ID: ${id}`);
+  }).catch(err => {
+    console.error(err)
   });
 
 const renderActiveNote = () => {
@@ -181,6 +197,29 @@ function randomID(num){
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   return text;
 }
+
+const clearNotes = () => {
+  // function for clearing all the notes goes here
+  alert('Clearing out all the notes');
+
+  fetch('/api/clear', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // let notesList = document.getElementById('list-group');
+      // notesList.innerHTML = '';
+    })
+    .catch((error) => {
+      console.error('Error: ', error);
+    });
+};
+
+// let clear = document.getElementsByClassName('clearNotes');
+// clear.addEventListener('click', clearNotes);
 
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then(renderNoteList);

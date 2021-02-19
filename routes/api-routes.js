@@ -1,8 +1,13 @@
-const tableNote = require('../db/table-note');
+// const tableNote = require('../db/table-note');
+
 const fs = require('fs');
+// const { finished } = require('stream');
+const data = fs.readFileSync('./db/db.json');
+let notesData = JSON.parse(data);
 
 module.exports = (app) => {
   let notes = [];
+  
   // fs.readFile(path.join(__dirname + '../db/db.json'), (err, data) => {
   //   if (err) throw err;
   //   let noteJson = JSON.parse(data);
@@ -14,15 +19,25 @@ module.exports = (app) => {
   // app.get('/api/notes', (req, res) => res.json(__dirname + '/db/db.json'));
   // app.get('/api/notes', (req, res) => res.json(notes));
 
-  app.get('/api/notes', (req, res) => res.json(tableNote));
+  app.get('/api/notes', (req, res) => {
+    
+    res.json(notesData);
+  });
+  
   
   app.post('/api/notes', (req, res) => {
     const newNotes = req.body;
-    // newNotes.id = newNotes.title.replace(/\s+/g, '').toLowerCase();
-    console.log(newNotes);
+    // console.log(newNotes);
 
-    // console.log(tableNote);
-    tableNote.push(req.body);
+    notesData.push(req.body);
+    const jnotes = JSON.stringify(notesData, null, 2);
+    fs.writeFile('./db/db.json', jnotes, finished);
+    function finished(err){
+      console.log('JSON file updated!');
+    }
+
+    // console.log(notesData);
+    console.log(jnotes);
     res.json(newNotes);
   });
 
@@ -39,6 +54,8 @@ module.exports = (app) => {
 // });
 
   app.post('/api/clear', (req, res) => {
-    tableNote.length = 0;
+    notesData.length = 0;
+
+    res.json({ ok: true });
   });
 }

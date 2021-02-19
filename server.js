@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + '/public')));
 app.use(express.json());
+app.locals.notesData = require('./db/db.json');
 
 require('./routes/api-routes')(app);
 require('./routes/html-routes')(app);
