@@ -10,17 +10,26 @@ module.exports = (app) => {
     res.json(notesData);
   });
   
+  function writeToJSONfile(){
+    const noteChanged = JSON.stringify(notesData, null, 2);
+    fs.writeFile('./db/db.json', noteChanged, finished);
+    
+    function finished(err){
+      console.log('JSON file updated!');
+    }
+  };
   
   app.post('/api/notes', (req, res) => {
     const newNotes = req.body;
 
     notesData.push(req.body);
-    const jnotes = JSON.stringify(notesData, null, 2);
-    fs.writeFile('./db/db.json', jnotes, finished);
+    writeToJSONfile();
+    // const jnotes = JSON.stringify(notesData, null, 2);
+    // fs.writeFile('./db/db.json', jnotes, finished);
     
-    function finished(err){
-      console.log('JSON file updated!');
-    }
+    // function finished(err){
+    //   console.log('JSON file updated!');
+    // }
 
     console.log(jnotes);
     res.json(newNotes);
@@ -34,8 +43,15 @@ module.exports = (app) => {
     
     for (let i = 0; i < notesData.length; i++) {
       if (deleteID === notesData[i].id) {
-        // return res.json(notes[i]);
-        console.log(notesData[i]);
+        // console.log(notesData[i]);
+        notesData.splice(i, i);
+        console.log(notesData);
+        // writeToJSONfile();
+        // const deletedNotes = JSON.stringify(notesData, null, 2);
+        // fs.writeFile('./db/db.json', deletedNotes, finished);
+        // function finished(err){
+        //   console.log('JSON file updated!');
+        // }
       }
     }
 
