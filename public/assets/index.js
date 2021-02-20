@@ -60,7 +60,7 @@ const saveNote = (note) =>
       'Content-Type': 'application/json',
     },
     // body: JSON.stringify(id),
-    body: null
+    // body: null
   })
   .then(() => {
     console.log('I need to send the data to delete to the server!');
