@@ -59,7 +59,8 @@ const saveNote = (note) =>
     headers: {
       'Content-Type': 'application/json',
     },
-    // body: null
+    // body: JSON.stringify(id),
+    body: null
   })
   .then(() => {
     console.log('I need to send the data to delete to the server!');
@@ -101,7 +102,10 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target;
+  // console.log(note);
   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
+  console.log(noteId);
+  console.log(activeNote);
 
   if (activeNote.id === noteId) {
     activeNote = {};
@@ -198,7 +202,7 @@ function randomID(num){
   return text;
 }
 
-const clearNotes = () => {
+function clearNotes () {
   // function for clearing all the notes goes here
   alert('Clearing out all the notes');
 

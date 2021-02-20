@@ -32,6 +32,7 @@ module.exports = (app) => {
     notesData.push(req.body);
     const jnotes = JSON.stringify(notesData, null, 2);
     fs.writeFile('./db/db.json', jnotes, finished);
+    
     function finished(err){
       console.log('JSON file updated!');
     }
@@ -39,6 +40,11 @@ module.exports = (app) => {
     // console.log(notesData);
     console.log(jnotes);
     res.json(newNotes);
+  });
+
+  app.delete('/api/notes', (req, res) => {
+    // this is the function for deleting a note
+    console.log(req);
   });
 
 // app.get('/api/notes/:notes', (req, res) => {
