@@ -36,7 +36,6 @@ module.exports = (app) => {
   });
 
   app.post('/api/clear', (req, res) => {
-    notesData.length = 0;
-    res.json({ ok: true });
+    // server code for clearing out all the notes when clicked on in future release
   });
 }

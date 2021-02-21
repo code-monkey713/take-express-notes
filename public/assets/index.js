@@ -1,5 +1,3 @@
-// console.log('You are GETTING THE JAVASCRIPT!');
-
 let noteTitle;
 let noteText;
 let saveNoteBtn;
@@ -44,26 +42,14 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
-// original delete note 
-// const deleteNote = (id) =>
-//   fetch(`/api/notes/${id}`, {
-//     method: 'DELETE',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   });
-
   const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
-    // body: JSON.stringify(id),
-    // body: null
   })
   .then(() => {
-    console.log('I need to send the data to delete to the server!');
     console.log(`removed item with ID: ${id}`);
   }).catch(err => {
     console.error(err)
@@ -83,13 +69,13 @@ const renderActiveNote = () => {
   }
 };
 
+// save note function and generate random 20 character ID to pass to the server with the note
 const handleNoteSave = () => {
   const newNote = {
     id: randomID(20),
     title: noteTitle.value,
     text: noteText.value,
   };
-  console.log(newNote);
   saveNote(newNote).then(() => {
     getAndRenderNotes();
     renderActiveNote();
@@ -102,10 +88,7 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target;
-  // console.log(note);
   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
-  // console.log(noteId);
-  // console.log(activeNote);
 
   if (activeNote.id === noteId) {
     activeNote = {};
@@ -125,10 +108,7 @@ const handleNoteView = (e) => {
 };
 
 // Sets the activeNote to and empty object and allows the user to enter a new note
-const handleNewNoteView = (e) => {
-  e.preventDefault();
-  // noteTitle.setAttribute('readonly', false);
-  // noteText.setAttribute('readonly', false);
+const handleNewNoteView = (e) => {  
   activeNote = {};
   renderActiveNote();
 };
@@ -171,10 +151,8 @@ const renderNoteList = async (notes) => {
         'delete-note'
       );
       delBtnEl.addEventListener('click', handleNoteDelete);
-
       liEl.append(delBtnEl);
     }
-
     return liEl;
   };
 
@@ -201,29 +179,6 @@ function randomID(num){
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   return text;
 }
-
-function clearNotes () {
-  // function for clearing all the notes goes here
-  alert('Clearing out all the notes');
-
-  fetch('/api/clear', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      // let notesList = document.getElementById('list-group');
-      // notesList.innerHTML = '';
-    })
-    .catch((error) => {
-      console.error('Error: ', error);
-    });
-};
-
-// let clear = document.getElementsByClassName('clearNotes');
-// clear.addEventListener('click', clearNotes);
 
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then(renderNoteList);
